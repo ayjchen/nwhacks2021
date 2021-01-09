@@ -9,6 +9,7 @@ var firebaseConfig = {
   appId: "1:615249473766:web:f4b73949990259898dcb27",
   measurementId: "G-NEC63D82DP"
 };
+firebase.initializeApp(firebaseConfig);
 
 // utils
 const db = firebase.firestore()
@@ -16,11 +17,11 @@ const auth = firebase.auth()
 
 // collection references
 const usersCollection = db.collection('users')
+const roomsCollection = db.collection('rooms')
 
 export {
   db,
   auth,
   usersCollection,
+  roomsCollection,
 }
-
-firebase.initializeApp(firebaseConfig);
