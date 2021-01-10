@@ -1,17 +1,22 @@
 <template>
 <div>
+  <div class="sticky">
   <div>Map goes here. You are in: {{currentRoom}}</div>
-  <div id="map_background"></div>
-  <div>Here are the people currently in a room with you</div>
+   <div>Here are the people currently in a room with you</div>
 
   <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
-
-  <Avatar @room-change="handleRoomChange"/>
-<button class="btn btn-primary" type="button" disabled v-if="waiting">
+  <button class="btn btn-primary" type="button" disabled v-if="waiting">
   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   Trying to bump into someone...
 </button>
-  <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
+  </div>
+  
+  <div id="map_background"></div>
+ 
+
+  <Avatar @room-change="handleRoomChange"/>
+
+  <!-- <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" /> -->
   
   <b-modal ref="modal" size="lg" hide-footer>
       Somebody has BUMPED into you! Enter a call? <br/>
@@ -23,13 +28,13 @@
 </template>
 
 <script>
-import Room from './Room.vue'
+// import Room from './Room.vue'
 import Avatar from './Avatar.vue'
 import {db} from "@/firebaseConfig"
 import {mapState} from "vuex"
 
 export default {
-  components: { Room, Avatar},
+  components: {  Avatar},
     name: 'Map',
     data() {
         return {
@@ -152,5 +157,12 @@ query.get().then((querySnapshot) => {
   background-position: center;
   background-repeat: no-repeat;
   background-image: url(../assets/ubc_map.png);
+}
+
+.sticky {
+  background: white;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 </style>
