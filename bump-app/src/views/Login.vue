@@ -2,6 +2,7 @@
   <b-form @submit.prevent>
     <br>
     <img src="../assets/bump_logo.png" style="width:10%;">
+    <div class="col-md-6 col-md-offset-3" style="margin:auto;">
     <b-form-group
       id="input-group-1"
       label="Email:"
@@ -31,6 +32,7 @@
       ></b-form-input>
     </b-form-group>
     <p class="error-message" style="color: red;">{{ error }}</p>
+    </div>
     <b-btn @click="login" type="submit" class="submit_button">LOG IN</b-btn>
   </b-form>
 </template>
@@ -74,5 +76,12 @@ export default {
 </script>
 
 <style>
+.text-left {
+  left: 200px;
+}
+
+.input-1 {
+  color: red;
+}
 
 </style>
