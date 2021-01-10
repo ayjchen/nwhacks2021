@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div>This is a room</div>
-      <b-btn @click="updateRoomMembers">Click to update</b-btn>
+  <div>This is the {{name}} room</div>
+    <b-btn @click="updateRoomMembers">Click to go here</b-btn>
 </div>
 </template>
 
@@ -11,10 +11,13 @@ import {roomsCollection, db } from "@/firebaseConfig"
 export default {
     name: 'Room',
     mounted() {
+        console.log(roomsCollection)
+    },
+    props: {
+        name,
     },
     data() {
         return {
-            name: "",
             currentPeople: [],
         }
     },
