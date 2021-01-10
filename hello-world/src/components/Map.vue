@@ -1,8 +1,19 @@
 <template>
 <div>
-  <div>Map goes here</div>
+  <div>Map goes here. You are in: {{currentRoom}}</div>
+  <div>Here are the people currently in a room with you</div>
+
+  <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
+
   <Avatar/>
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
+  <b-button @click="showModal" > show </b-button>
+  <b-modal ref="modal" size="lg">
+      Somebody has BUMPED into you! Enter a call? <br/>
+      <b-button 
+      href="http://127.0.0.1:9999/meeting.html?name=Name&mn=7789476351&email=&pwd=d2RhTUNRMmhJNVN3Um5YUkdZWDhjUT09&role=0&lang=en-US&signature=bldYVWRCd01ReWVZc0NLYk5RTTE1US43Nzg5NDc2MzUxLjE2MTAyNTE0OTMzNTUuMC5lT0R1WStVUjlFbklteDU1RUdoeGtYVTZid21ZK0dZbmZpaHErRHQ5WTk0PQ&china=0&apiKey=nWXUdBwMQyeYsCKbNQM15Q"
+      target="_blank">Hop On!</b-button>
+  </b-modal>
 </div>
 </template>
 
@@ -19,6 +30,8 @@ export default {
         return {
             currentRoom: null,
             roomsList: ["NEST","IKB","LIFE"],
+            peopleList: [],
+            meetingPerson: ""
         }
     },
     mounted() {
@@ -28,8 +41,18 @@ export default {
       userName: state => state.userProfile.name,
       userUID: state => state.currentUser.uid,
     }),
+    peopleListFiltered() {
+        let newList = []
+        for (let p of this.peopleList) {
+            if (p.name && !newList.includes(p.name)) newList.push(p.name)
+        }
+        return newList
+    },
   },
     methods: {
+        showModal() {
+        this.$refs['modal'].show()
+        },
     handleRoomChange(room) {
         if (this.currentRoom != null) {
             this.removeFromRoom(this.currentRoom, this.userUID)
@@ -49,6 +72,49 @@ export default {
         .catch(function(error) {
             console.error("Error adding document: ", error);
         })
+
+
+
+        db.collection("rooms").doc(room).collection("people").get()
+        .then(querySnapshot => {
+            this.peopleList = querySnapshot.docs.map(doc => doc.data())
+        });
+        // forces update if room people list changes
+        db.collection("rooms").doc(room).collection("people")
+        .onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+            console.log(change)
+            db.collection("rooms").doc(room).collection("people").get()
+            .then(querySnapshot => {
+                that.peopleList = querySnapshot.docs.map(doc => doc.data())
+            });
+        });
+        //scan queue
+        db.collection("queue").doc(room).get().then(doc => {
+            let data = doc.data()
+            if (data.waiting) {
+                that.showModal()
+                db.collection("queue").doc(room).update({
+                    waiting: false,
+                    uid: "",
+                    name: "",
+                })
+            } else {
+                    db.collection("queue").doc(room).update({
+                    waiting: true,
+                    uid: that.userUID,
+                    name: that.userName
+                })   
+            }
+        });
+        // monitor queue if you are waiting.
+        db.collection("queue").doc(room).onSnapshot(function(doc) {
+            let data = doc.data()
+            if (!data.waiting && data.uid == that.userUID) {
+                that.showModal()
+            }
+        });
+    });
         },
     removeFromRoom(room, uid) {
 let query = db.collection('rooms').doc(room).collection("people").where('uid','==',uid);
