@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>Map goes here</div>
+  <div>This is a room</div>
       <b-btn @click="updateRoomMembers">Click to update</b-btn>
 </div>
 </template>
@@ -11,11 +11,6 @@ import {roomsCollection, db } from "@/firebaseConfig"
 export default {
     name: 'Map',
     mounted() {
-        roomsCollection.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-         });
-});
     },
     methods: {
         updateRoomMembers() {
