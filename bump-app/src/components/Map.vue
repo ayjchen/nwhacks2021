@@ -1,7 +1,7 @@
 <template>
 <div>
+  <b-button id="map-toggle" variant="success" v-b-toggle.sidebar-1>Map Details</b-button>
   <div class="sticky">
-      <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button>
       <b-sidebar id="sidebar-1" title="Bump!" right shadow>
   <div>Map goes here. You are in: {{currentRoom}}</div>
    <div>Here are the people currently in a room with you</div>
@@ -167,5 +167,15 @@ query.get().then((querySnapshot) => {
   position: fixed;
   top: 0;
   right: 0;
+}
+
+#map-toggle {
+  position: absolute;
+  top: 12rem;
+  left: 1.5rem;
+  width: 100px;
+  font-weight: 500;
+  border: 2px solid white;
+  border-radius: 30px;
 }
 </style>
