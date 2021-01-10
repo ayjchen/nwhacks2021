@@ -58,7 +58,6 @@ export default {
         .signInWithEmailAndPassword(this.loginForm.email, this.loginForm.password)
         .then((user) => {
           user = auth.currentUser;
-          console.log(user);
           this.$store.commit("setUser", user);
           this.$store.dispatch("fetchUserProfile");
           console.log("Signed in successfully!")
