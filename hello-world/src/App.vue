@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Login/>
     <Profile/>
     <Map />
   </div>
@@ -8,12 +9,14 @@
 <script>
 import Profile from './components/Profile.vue'
 import Map from './components/Map'
+import Login from './Login.vue'
 
 export default {
   name: 'App',
   components: {
     Profile,
-    Map
+    Map,
+    Login
   }
 }
 </script>
