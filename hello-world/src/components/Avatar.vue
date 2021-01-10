@@ -26,23 +26,17 @@ export default {
         }
     },
     watch: {
-        playerX: function(newval, oldval) {
-//             if (oldval < box2.x && newval > box2.x) {
-//                 //
-//             } else if (oldval < box3.x && newval > box3.x) {
-
-//             } else if (oldval > box2.x && newval < box2.x) {
-// //
-//             } else if (oldval > box3.x && newval < box3.x) {
-
-//             }
+        currentBox: function(newval, oldval) {
+            if (newval != oldval) {
+                // leave oldval
+                // enter newval
+            }
         },
-        playerY: function(newval, oldval) {
-
-        },  
     },
     computed: {
-        currentBox(x,y) {
+        currentBox() {
+            let x = this.playerX
+            let y = this.playerY
             if (x <= box1.x && y <= box1.y) {
                 return 1
             } else if (box1.x < x <= box2.x && y <= box1.y) {
@@ -74,8 +68,10 @@ export default {
         var KeyboardHelper = { left: 37, up: 38, right: 39, down: 40 };
         var walk_ani = 1;
         var walk_count = 0;
+    }, 
+    methods: {
 
-        function keyDownHandler(event) {
+        keyDownHandler(event) {
             if(event.keyCode == KeyboardHelper.left) {
                 leftPressed = true;
             }
@@ -90,7 +86,7 @@ export default {
             }
         }
 
-        function keyUpHandler(event) {
+        ,keyUpHandler(event) {
             if(event.keyCode == KeyboardHelper.left) {
                 leftPressed = false;
             }
@@ -105,7 +101,7 @@ export default {
             }
         }
 
-        function draw() {
+        ,draw() {
             ctx.clearRect(0, 0, c.width, c.height);
             ctx.canvas.width  = window.innerWidth - 400;
             ctx.canvas.height = window.innerHeight - 50;
