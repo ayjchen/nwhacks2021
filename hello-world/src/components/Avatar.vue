@@ -16,6 +16,7 @@ Your browser does not support the HTML5 canvas tag.
 const box1 = {x: 0, y:0 }
 const box2 = {x: 500, y:500}
 const box3 = {x: 1000,y:1000}
+const box4 = {x: 1500,y:1500}
         
 export default {
     name: 'Avatar',
@@ -26,9 +27,6 @@ export default {
             c: null,
             ctx: null,
             img: null,
-        
-            
-
             rightPressed: false,
             leftPressed: false,
             upPressed: false,
@@ -36,13 +34,16 @@ export default {
             speed: 3,
             KeyboardHelper: { left: 37, up: 38, right: 39, down: 40 },
             walk_ani: 1,
-            walk_count: 0
+            walk_count: 0,
+ roomsList : ["NEST","IKB","LIFE","NEST","IKB","LIFE","NEST","IKB","LIFE","NEST","IKB","LIFE"]
+
         }
     },
     watch: {
         currentBox: function(newval, oldval) {
             if (newval != oldval) {
-                this.$emit("room-change", newval)
+                console.log(newval)
+                // this.$emit("room-change", newval)
             }
         },
     },
@@ -50,26 +51,42 @@ export default {
         currentBox() {
             let x = this.playerX
             let y = this.playerY
-            if (x <= box1.x && y <= box1.y) {
-                return 1
-            } else if (box1.x < x <= box2.x && y <= box1.y) {
-                return 2
-            } else if (box2.x < x <= box3.x && y <= box1.y) {
-                return 3
+            if (y <= box1.y) {
+                if (x <= box1.x ) {
+                    return this.roomsList[1]
+                } else if (x <= box2.x) {
+                    return this.roomsList[2]
+                } else if (x <= box3.x) {
+                    return this.roomsList[3]
+                } else if (x <= box4.x) {
+                    return this.roomsList[4]
+                }
             }
-            if (x <= box1.x && box1.y < y <= box2.y) {
-                return 4
-            } else if (box1.x < x <= box2.x && y <= box1.y) {
-                return 5
-            } else if (box2.x < x <= box3.x && y <= box1.y) {
-                return 6
+
+
+            else if (y <= box2.y) {
+                if (x <= box1.x ) {
+                    return this.roomsList[5]
+                } else if (x <= box2.x) {
+                    return this.roomsList[6]
+                } else if (x <= box3.x) {
+                    return this.roomsList[7]
+                } else if (x <= box4.x) {
+                    return this.roomsList[8]
+                }
             }
-            if (x <= box1.x && box2.y< y <= box3.y) {
-                return 7
-            } else if (box1.x < x <= box2.x && y <= box1.y) {
-                return 8
-            } else if (box2.x < x <= box3.x && y <= box1.y) {
-                return 9
+
+
+            else if (y <= box3.y) {
+                if (x <= box1.x ) {
+                    return this.roomsList[9]
+                } else if (x <= box2.x) {
+                    return this.roomsList[10]
+                } else if (x <= box3.x) {
+                    return this.roomsList[11]
+                } else if (x <= box4.x) {
+                    return this.roomsList[12]
+                }
             }
             return null
         }
