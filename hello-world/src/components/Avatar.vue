@@ -16,7 +16,20 @@ Your browser does not support the HTML5 canvas tag.
 const box1 = {x: 0, y:0 }
 const box2 = {x: 500, y:500}
 const box3 = {x: 1000,y:1000}
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var img = document.getElementById("front");
+        
+            
 
+        var rightPressed = false;
+        var leftPressed = false;
+        var upPressed = false;
+        var downPressed = false;
+        var speed = 3;
+        var KeyboardHelper = { left: 37, up: 38, right: 39, down: 40 };
+        var walk_ani = 1;
+        var walk_count = 0;
 export default {
     name: 'Avatar',
     data() {
@@ -28,7 +41,7 @@ export default {
     watch: {
         currentBox: function(newval, oldval) {
             if (newval != oldval) {
-                this.$emit(room-change, newval)
+                this.$emit("room-change", newval)
             }
         },
     },
@@ -57,30 +70,18 @@ export default {
             } else if (box2.x < x <= box3.x && y <= box1.y) {
                 return 9
             }
+            return null
         }
     },
     mounted() {
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
-        var img = document.getElementById("front");
-        
-
-        window.requestAnimationFrame(draw); 
 
 
-        document.addEventListener('keydown', keyDownHandler, false);
-        document.addEventListener('keyup', keyUpHandler, false);
+        window.requestAnimationFrame(this.draw); 
 
-            
 
-        var rightPressed = false;
-        var leftPressed = false;
-        var upPressed = false;
-        var downPressed = false;
-        var speed = 3;
-        var KeyboardHelper = { left: 37, up: 38, right: 39, down: 40 };
-        var walk_ani = 1;
-        var walk_count = 0;
+        document.addEventListener('keydown', this.keyDownHandler, false);
+        document.addEventListener('keyup', this.keyUpHandler, false);
+
     }, 
     methods: {
 
@@ -155,7 +156,7 @@ export default {
                 img = document.getElementById("back");
             }
             ctx.drawImage(img, this.playerX, this.playerY, 60, 80);
-            requestAnimationFrame(draw);
+            requestAnimationFrame(this.draw);
         }
             }
             
