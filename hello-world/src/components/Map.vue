@@ -1,6 +1,10 @@
 <template>
 <div>
-  <div>Map goes here</div>
+  <div>Map goes here. You are in: {{currentRoom}}</div>
+  <div>Here are the people currently in a room with you</div>
+
+  <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
+
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
 </div>
 </template>
@@ -17,6 +21,7 @@ export default {
         return {
             currentRoom: null,
             roomsList: ["NEST","IKB","LIFE"],
+            peopleList: [],
         }
     },
     mounted() {
@@ -26,6 +31,13 @@ export default {
       userName: state => state.userProfile.name,
       userUID: state => state.currentUser.uid,
     }),
+    peopleListFiltered() {
+        let newList = []
+        for (let p of this.peopleList) {
+            if (p.name && !newList.includes(p.name)) newList.push(p.name)
+        }
+        return newList
+    },
   },
     methods: {
     handleRoomChange(room) {
@@ -47,6 +59,21 @@ export default {
         .catch(function(error) {
             console.error("Error adding document: ", error);
         })
+        db.collection("rooms").doc(room).collection("people").get()
+  .then(querySnapshot => {
+    this.peopleList = querySnapshot.docs.map(doc => doc.data())
+  });
+  // forces update if room people list changes
+        db.collection("rooms").doc(room).collection("people")
+    .onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+            console.log(change)
+            db.collection("rooms").doc(room).collection("people").get()
+            .then(querySnapshot => {
+                that.peopleList = querySnapshot.docs.map(doc => doc.data())
+            });
+        });
+    });
         },
     removeFromRoom(room, uid) {
 let query = db.collection('rooms').doc(room).collection("people").where('uid','==',uid);
