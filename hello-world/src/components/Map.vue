@@ -144,10 +144,12 @@ query.get().then((querySnapshot) => {
 }
 
 #map_background {
-  min-height: 100vh;
+  z-index: -1;
+  height: 95vh;
   min-width: 100%;
   position: absolute;
   background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   background-image: url(../assets/ubc_map.png);
 }
