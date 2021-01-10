@@ -8,10 +8,13 @@
         <div class="sidebar_content">
           <div style="margin-bottom: 1rem">You are in: {{ currentRoom }}</div>
 
-          <div>Here are the people currently in a room with you:</div>
+          <div style="margin-bottom: 0.5rem; font-weight: 500">
+            Here are the people currently in a room with you:</div>
 
           <div v-for="p of peopleListFiltered" :key="p">{{ p }}</div>
-          <button class="btn btn-primary" type="button" disabled v-if="waiting">
+          
+          <button class="btn btn-primary" type="button" disabled v-if="waiting"
+          style="margin-top:2rem">
             <span
               class="spinner-grow spinner-grow-sm"
               role="status"
