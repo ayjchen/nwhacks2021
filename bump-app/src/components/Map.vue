@@ -1,6 +1,8 @@
 <template>
 <div>
   <div class="sticky">
+      <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button>
+      <b-sidebar id="sidebar-1" title="Bump!" right shadow>
   <div>Map goes here. You are in: {{currentRoom}}</div>
    <div>Here are the people currently in a room with you</div>
 
@@ -9,6 +11,7 @@
   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   Trying to bump into someone...
 </button>
+      </b-sidebar>
   </div>
   
   <div id="map_background"></div>
