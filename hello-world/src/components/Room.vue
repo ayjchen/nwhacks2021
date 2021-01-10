@@ -9,8 +9,14 @@
 import {roomsCollection, db } from "@/firebaseConfig"
 
 export default {
-    name: 'Map',
+    name: 'Room',
     mounted() {
+    },
+    data() {
+        return {
+            name: "",
+            currentPeople: [],
+        }
     },
     methods: {
         updateRoomMembers() {
