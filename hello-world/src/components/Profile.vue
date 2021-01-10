@@ -2,7 +2,7 @@
   <div id="profile">
     <div class="userInfo">{{ userName }}</div>
     <div class="userInfo">{{ userRole }}</div>
-    <b-btn @click="updateProfile">Click to update</b-btn>
+    <!-- <b-btn @click="updateProfile">Click to update</b-btn> -->
   </div>
 </template>
 

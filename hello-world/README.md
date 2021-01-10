@@ -1,4 +1,4 @@
-# hello-world
+# bump-app
 
 ## Project setup
 ```
