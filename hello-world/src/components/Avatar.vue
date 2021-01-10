@@ -6,7 +6,7 @@
 <img style="display: none;" id="left2" src="../assets/avatar1_leftwalk.png">
 <img style="display: none;" id="right2" src="../assets/avatar1_rightwalk.png">
 <img style="display: none;" id="back" src="../assets/avatar1_back.png">
-<canvas id="myCanvas" width="840" height="480" style="position:absolute; left:200px; top:200px;">
+<canvas id="myCanvas" width="840" height="480" style="position:absolute; left:200px; top:25px;">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
 </div>
@@ -108,7 +108,7 @@ export default {
         function draw() {
             ctx.clearRect(0, 0, c.width, c.height);
             ctx.canvas.width  = window.innerWidth - 400;
-            ctx.canvas.height = window.innerHeight - 100;
+            ctx.canvas.height = window.innerHeight - 50;
             if(rightPressed) {
                 this.playerX += speed;
                 if (walk_count < 10) {
