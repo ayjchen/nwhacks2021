@@ -14,8 +14,8 @@ Your browser does not support the HTML5 canvas tag.
 
 <script>
 const box1 = {x: 0, y:0 }
-const box2 = {x: 500, y:0}
-const box3 = {x: 1000,y:0}
+const box2 = {x: 500, y:500}
+const box3 = {x: 1000,y:1000}
 
 export default {
     name: 'Avatar',
@@ -28,8 +28,7 @@ export default {
     watch: {
         currentBox: function(newval, oldval) {
             if (newval != oldval) {
-                // leave oldval
-                // enter newval
+                this.$emit(room-change, newval)
             }
         },
     },
@@ -43,6 +42,20 @@ export default {
                 return 2
             } else if (box2.x < x <= box3.x && y <= box1.y) {
                 return 3
+            }
+            if (x <= box1.x && box1.y < y <= box2.y) {
+                return 4
+            } else if (box1.x < x <= box2.x && y <= box1.y) {
+                return 5
+            } else if (box2.x < x <= box3.x && y <= box1.y) {
+                return 6
+            }
+            if (x <= box1.x && box2.y< y <= box3.y) {
+                return 7
+            } else if (box1.x < x <= box2.x && y <= box1.y) {
+                return 8
+            } else if (box2.x < x <= box3.x && y <= box1.y) {
+                return 9
             }
         }
     },

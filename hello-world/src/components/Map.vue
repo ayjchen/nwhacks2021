@@ -6,7 +6,7 @@
 
   <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
 
-  <Avatar/>
+  <Avatar @room-change="handleRoomChange"/>
 <button class="btn btn-primary" type="button" disabled v-if="waiting">
   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   Trying to bump into someone...
