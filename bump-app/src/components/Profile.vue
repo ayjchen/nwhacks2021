@@ -1,5 +1,6 @@
 <template>
   <div id="profile">
+    <img style="width: 120px" src="../assets/profile.png" alt="">
     <div class="label">Name</div>
     <div class="userInfo">{{ userName }}</div>
     <div class="label">Role</div>
@@ -48,5 +49,6 @@ export default {
 
 #profile {
   text-align: center;
+  font-family: Avenir;
 }
 </style>

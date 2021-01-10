@@ -6,11 +6,19 @@
     </div>
     <!-- Modals -->
     <div>
-      <b-modal v-model="profileModal">
+      <b-modal v-model="profileModal" centered title="Profile" ok-only>
         <Profile/>
       </b-modal>
-      <b-modal v-model="helpModal">Press the arrow keys on your keyboard to walk around
-        the map. You'll receive a video call join option if you bump into someone! ;D
+      <b-modal v-model="helpModal" centered title="Help" ok-only>
+        <div style="text-align: center; font-family: Avenir">
+          <div style="font-weight: 600; font-size: 20px; margin-bottom: 1rem">
+            Welcome to bump!
+          </div>
+          
+        
+          Press the arrow keys on your keyboard to walk around
+          the map. You'll receive a video call join option if you bump into someone! ;D
+        </div>
       </b-modal>
     </div>
     <Map />
