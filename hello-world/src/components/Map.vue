@@ -12,7 +12,7 @@
 </button>
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
   
-  <b-modal ref="modal" size="lg">
+  <b-modal ref="modal" size="lg" hide-footer>
       Somebody has BUMPED into you! Enter a call? <br/>
       <b-button 
       href="http://127.0.0.1:9999/meeting.html?name=Name&mn=7789476351&email=&pwd=d2RhTUNRMmhJNVN3Um5YUkdZWDhjUT09&role=0&lang=en-US&signature=bldYVWRCd01ReWVZc0NLYk5RTTE1US43Nzg5NDc2MzUxLjE2MTAyNTE0OTMzNTUuMC5lT0R1WStVUjlFbklteDU1RUdoeGtYVTZid21ZK0dZbmZpaHErRHQ5WTk0PQ&china=0&apiKey=nWXUdBwMQyeYsCKbNQM15Q"
