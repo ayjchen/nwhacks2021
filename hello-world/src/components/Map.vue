@@ -1,6 +1,7 @@
 <template>
 <div>
   <div>Map goes here. You are in: {{currentRoom}}</div>
+  <div id="map_background"></div>
   <div>Here are the people currently in a room with you</div>
 
   <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
@@ -140,5 +141,14 @@ query.get().then((querySnapshot) => {
 <style>
 .btn {
     z-index: 999;
+}
+
+#map_background {
+  min-height: 100vh;
+  min-width: 100%;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(../assets/ubc_map.png);
 }
 </style>
