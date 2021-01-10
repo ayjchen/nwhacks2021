@@ -7,8 +7,8 @@
 
 <script>
 import Room from './Room.vue'
-import { mapGetters } from "vuex"
 import {db} from "@/firebaseConfig"
+import {mapState} from "vuex"
 
 export default {
   components: { Room },
@@ -22,21 +22,23 @@ export default {
     mounted() {
     },
     computed: {
-        ...mapGetters(["getCurrentUserUID"])
-    },
+    ...mapState({//grap vuex store (should hopefully have been synced with firebase)
+      userName: state => state.userProfile.name,
+      userUID: state => state.currentUser.uid,
+    }),
+  },
     methods: {
     handleRoomChange(room) {
         if (this.currentRoom != null) {
-            this.removeFromRoom(this.currentRoom, this.getCurrentUserUID)
+            this.removeFromRoom(this.currentRoom, this.userUID)
         }
-        this.addToRoom(room, this.getCurrentUserUID)
-        // console.log(room)
-        // console.log(this.getCurrentUserUID)
+        this.addToRoom(room)
     },
-    addToRoom(room, user) {
+    addToRoom(room) {
         let that = this
         db.collection("rooms").doc(room).collection("people").add({
-            name: user
+            name: this.userName,
+            uid: this.userUID
         })
         .then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
@@ -46,8 +48,8 @@ export default {
             console.error("Error adding document: ", error);
         })
         },
-    removeFromRoom(room, user) {
-let query = db.collection('rooms').doc(room).collection("people").where('name','==',user);
+    removeFromRoom(room, uid) {
+let query = db.collection('rooms').doc(room).collection("people").where('uid','==',uid);
 query.get().then((querySnapshot) => {
   querySnapshot.forEach((doc) => {
     doc.ref.delete();

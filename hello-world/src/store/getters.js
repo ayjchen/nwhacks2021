@@ -1,3 +1,3 @@
-export function getCurrentUserUID(state) {
-    return state.currentUser.uid
+export function getCurrentUser(state) {
+    return state.currentUser
   }
