@@ -1,6 +1,8 @@
 <template>
   <div id="profile">
+    <div class="label">Name</div>
     <div class="userInfo">{{ userName }}</div>
+    <div class="label">Role</div>
     <div class="userInfo">{{ userRole }}</div>
     <!-- <b-btn @click="updateProfile">Click to update</b-btn> -->
   </div>
@@ -35,13 +37,16 @@ export default {
 </script>
 
 <style>
+.label {
+  color: grey;
+}
+
 .userInfo {
-  margin: 0.5rem;
+  margin: 0 0.5rem 0.5rem;
+  font-size: 20px;
 }
 
 #profile {
-  padding: 2rem;
-  min-width: 800px;
-  background-color: papayawhip;
+  text-align: center;
 }
 </style>

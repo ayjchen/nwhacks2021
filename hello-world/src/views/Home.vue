@@ -6,15 +6,19 @@
     </div>
     <!-- Modals -->
     <div>
-      <b-modal v-model="profileModal">Hello From Modal!</b-modal>
-      <b-modal v-model="helpModal">Hello From Modal!</b-modal>
+      <b-modal v-model="profileModal">
+        <Profile/>
+      </b-modal>
+      <b-modal v-model="helpModal">Press the arrow keys on your keyboard to walk around
+        the map. You'll receive a video call join option if you bump into someone! ;D
+      </b-modal>
     </div>
     <Map />
   </div>
 </template>
 
 <script>
-//import Profile from '@/components/Profile.vue'
+import Profile from '@/components/Profile.vue'
 import Map from '@/components/Map'
 
 export default {
@@ -26,7 +30,7 @@ export default {
     }
   },
   components: {
-  //  Profile,
+    Profile,
     Map,
   },
   methods: {
@@ -45,6 +49,7 @@ export default {
   position: absolute;
   top: 1rem;
   left: 1rem;
+  font-family: Avenir !important;
 }
 
 .menu-btn {
