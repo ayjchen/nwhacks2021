@@ -6,8 +6,11 @@
   <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
 
   <Avatar/>
+<div class="spinner-border" role="status" v-if="waiting">
+  <span class="sr-only">Trying to bump into someone...</span>
+</div>
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
-  <b-button @click="showModal" > show </b-button>
+  
   <b-modal ref="modal" size="lg">
       Somebody has BUMPED into you! Enter a call? <br/>
       <b-button 
@@ -31,7 +34,8 @@ export default {
             currentRoom: null,
             roomsList: ["NEST","IKB","LIFE"],
             peopleList: [],
-            meetingPerson: ""
+            meetingPerson: "",
+            waiting: false,
         }
     },
     mounted() {
@@ -100,11 +104,12 @@ export default {
                     name: "",
                 })
             } else {
-                    db.collection("queue").doc(room).update({
+                db.collection("queue").doc(room).update({
                     waiting: true,
                     uid: that.userUID,
                     name: that.userName
-                })   
+                })
+                that.waiting = true   
             }
         });
         // monitor queue if you are waiting.
@@ -112,6 +117,7 @@ export default {
             let data = doc.data()
             if (!data.waiting && data.uid == that.userUID) {
                 that.showModal()
+                that.waiting = false
             }
         });
     });
