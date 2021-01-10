@@ -16,26 +16,27 @@ Your browser does not support the HTML5 canvas tag.
 const box1 = {x: 0, y:0 }
 const box2 = {x: 500, y:500}
 const box3 = {x: 1000,y:1000}
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
-        var img = document.getElementById("front");
         
-            
-
-        var rightPressed = false;
-        var leftPressed = false;
-        var upPressed = false;
-        var downPressed = false;
-        var speed = 3;
-        var KeyboardHelper = { left: 37, up: 38, right: 39, down: 40 };
-        var walk_ani = 1;
-        var walk_count = 0;
 export default {
     name: 'Avatar',
     data() {
         return {
             playerX: 0,
             playerY: 0,
+            c: null,
+            ctx: null,
+            img: null,
+        
+            
+
+            rightPressed: false,
+            leftPressed: false,
+            upPressed: false,
+            downPressed: false,
+            speed: 3,
+            KeyboardHelper: { left: 37, up: 38, right: 39, down: 40 },
+            walk_ani: 1,
+            walk_count: 0
         }
     },
     watch: {
@@ -75,6 +76,10 @@ export default {
     },
     mounted() {
 
+        this.c = document.getElementById("myCanvas");
+        this.ctx = this.c.getContext("2d");
+        this.img = document.getElementById("front");
+
 
         window.requestAnimationFrame(this.draw); 
 
@@ -86,76 +91,76 @@ export default {
     methods: {
 
         keyDownHandler(event) {
-            if(event.keyCode == KeyboardHelper.left) {
-                leftPressed = true;
+            if(event.keyCode == this.KeyboardHelper.left) {
+                this.leftPressed = true;
             }
-            else if(event.keyCode == KeyboardHelper.right) {
-                rightPressed = true;
+            else if(event.keyCode == this.KeyboardHelper.right) {
+                this.rightPressed = true;
             }
-            if(event.keyCode == KeyboardHelper.down) {
-                downPressed = true;
+            if(event.keyCode == this.KeyboardHelper.down) {
+                this.downPressed = true;
             }
-            else if(event.keyCode == KeyboardHelper.up) {
-                upPressed = true;
+            else if(event.keyCode == this.KeyboardHelper.up) {
+                this.upPressed = true;
             }
         }
 
         ,keyUpHandler(event) {
-            if(event.keyCode == KeyboardHelper.left) {
-                leftPressed = false;
+            if(event.keyCode == this.KeyboardHelper.left) {
+                this.leftPressed = false;
             }
-            else if(event.keyCode == KeyboardHelper.right) {
-                rightPressed = false;
+            else if(event.keyCode == this.KeyboardHelper.right) {
+                this.rightPressed = false;
             }
-            if(event.keyCode == KeyboardHelper.down) {
-                downPressed = false;
+            if(event.keyCode == this.KeyboardHelper.down) {
+                this.downPressed = false;
             }
-            else if(event.keyCode == KeyboardHelper.up) {
-                upPressed = false;
+            else if(event.keyCode == this.KeyboardHelper.up) {
+                this.upPressed = false;
             }
         }
 
         ,draw() {
-            ctx.clearRect(0, 0, c.width, c.height);
-            ctx.canvas.width  = window.innerWidth - 400;
-            ctx.canvas.height = window.innerHeight - 50;
-            if(rightPressed) {
-                this.playerX += speed;
-                if (walk_count < 10) {
-                    walk_count += 1;
+            this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+            this.ctx.canvas.width  = window.innerWidth - 400;
+            this.ctx.canvas.height = window.innerHeight - 50;
+            if(this.rightPressed) {
+                this.playerX += this.speed;
+                if (this.walk_count < 10) {
+                    this.walk_count += 1;
                 }   else {
-                    walk_count = 0;
-                    walk_ani *= -1;
+                    this.walk_count = 0;
+                    this.walk_ani *= -1;
                 }
-                if (walk_ani == 1) {
-                    img = document.getElementById("right");
+                if (this.walk_ani == 1) {
+                    this.img = document.getElementById("right");
                 }   else {
-                    img = document.getElementById("right2");
-                }
-            }
-            else if(leftPressed) {
-                this.playerX -= speed;
-                if (walk_count < 10) {
-                    walk_count += 1;
-                }   else {
-                    walk_count = 0;
-                    walk_ani *= -1;
-                }
-                if (walk_ani == 1) {
-                    img = document.getElementById("left");
-                }   else {
-                    img = document.getElementById("left2");
+                    this.img = document.getElementById("right2");
                 }
             }
-            if(downPressed) {
-                this.playerY += speed;
-                img = document.getElementById("front");
+            else if(this.leftPressed) {
+                this.playerX -= this.speed;
+                if (this.walk_count < 10) {
+                    this.walk_count += 1;
+                }   else {
+                    this.walk_count = 0;
+                    this.walk_ani *= -1;
+                }
+                if (this.walk_ani == 1) {
+                    this.img = document.getElementById("left");
+                }   else {
+                    this.img = document.getElementById("left2");
+                }
             }
-            else if(upPressed) {
-                this.playerY -= speed;
-                img = document.getElementById("back");
+            if(this.downPressed) {
+                this.playerY += this.speed;
+                this.img = document.getElementById("front");
             }
-            ctx.drawImage(img, this.playerX, this.playerY, 60, 80);
+            else if(this.upPressed) {
+                this.playerY -= this.speed;
+                this.img = document.getElementById("back");
+            }
+            this.ctx.drawImage(this.img, this.playerX, this.playerY, 60, 80);
             requestAnimationFrame(this.draw);
         }
             }
