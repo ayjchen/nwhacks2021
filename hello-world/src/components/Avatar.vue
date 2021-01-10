@@ -13,9 +13,45 @@ Your browser does not support the HTML5 canvas tag.
 </template>
 
 <script>
+const box1 = {x: 0, y:0 }
+const box2 = {x: 500, y:0}
+const box3 = {x: 1000,y:0}
 
 export default {
     name: 'Avatar',
+    data() {
+        return {
+            playerX: 0,
+            playerY: 0,
+        }
+    },
+    watch: {
+        playerX: function(newval, oldval) {
+//             if (oldval < box2.x && newval > box2.x) {
+//                 //
+//             } else if (oldval < box3.x && newval > box3.x) {
+
+//             } else if (oldval > box2.x && newval < box2.x) {
+// //
+//             } else if (oldval > box3.x && newval < box3.x) {
+
+//             }
+        },
+        playerY: function(newval, oldval) {
+
+        },  
+    },
+    computed: {
+        currentBox(x,y) {
+            if (x <= box1.x && y <= box1.y) {
+                return 1
+            } else if (box1.x < x <= box2.x && y <= box1.y) {
+                return 2
+            } else if (box2.x < x <= box3.x && y <= box1.y) {
+                return 3
+            }
+        }
+    },
     mounted() {
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
@@ -34,8 +70,6 @@ export default {
         var leftPressed = false;
         var upPressed = false;
         var downPressed = false;
-        var playerX = 0;
-        var playerY = 0;
         var speed = 3;
         var KeyboardHelper = { left: 37, up: 38, right: 39, down: 40 };
         var walk_ani = 1;
@@ -76,7 +110,7 @@ export default {
             ctx.canvas.width  = window.innerWidth - 400;
             ctx.canvas.height = window.innerHeight - 100;
             if(rightPressed) {
-                playerX += speed;
+                this.playerX += speed;
                 if (walk_count < 10) {
                     walk_count += 1;
                 }   else {
@@ -90,7 +124,7 @@ export default {
                 }
             }
             else if(leftPressed) {
-                playerX -= speed;
+                this.playerX -= speed;
                 if (walk_count < 10) {
                     walk_count += 1;
                 }   else {
@@ -104,14 +138,14 @@ export default {
                 }
             }
             if(downPressed) {
-                playerY += speed;
+                this.playerY += speed;
                 img = document.getElementById("front");
             }
             else if(upPressed) {
-                playerY -= speed;
+                this.playerY -= speed;
                 img = document.getElementById("back");
             }
-            ctx.drawImage(img, playerX, playerY, 60, 80);
+            ctx.drawImage(img, this.playerX, this.playerY, 60, 80);
             requestAnimationFrame(draw);
         }
             }
