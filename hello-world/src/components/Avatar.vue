@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="avatar">
 <img style="display: none;" id="front" src="../assets/avatar1_front.png">
 <img style="display: none;" id="left" src="../assets/avatar1_leftstill.png">
 <img style="display: none;" id="right" src="../assets/avatar1_rightstill.png">
@@ -123,5 +123,7 @@ export default {
 </script>
 
 <style>
-
+#avatar{
+    pointer-events: none;
+}
 </style>

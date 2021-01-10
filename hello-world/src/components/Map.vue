@@ -6,9 +6,10 @@
   <div v-for="p of peopleListFiltered" :key= "p" >{{p}}</div>
 
   <Avatar/>
-<div class="spinner-border" role="status" v-if="waiting">
-  <span class="sr-only">Trying to bump into someone...</span>
-</div>
+<button class="btn btn-primary" type="button" disabled v-if="waiting">
+  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  Trying to bump into someone...
+</button>
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
   
   <b-modal ref="modal" size="lg">
@@ -27,7 +28,7 @@ import {db} from "@/firebaseConfig"
 import {mapState} from "vuex"
 
 export default {
-  components: { Room, Avatar },
+  components: { Room, Avatar},
     name: 'Map',
     data() {
         return {
@@ -98,6 +99,7 @@ export default {
             let data = doc.data()
             if (data.waiting) {
                 that.showModal()
+                that.waiting = false
                 db.collection("queue").doc(room).update({
                     waiting: false,
                     uid: "",
@@ -136,5 +138,7 @@ query.get().then((querySnapshot) => {
 </script>
 
 <style>
-
+.btn {
+    z-index: 999;
+}
 </style>
