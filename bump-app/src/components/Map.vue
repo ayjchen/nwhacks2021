@@ -181,6 +181,7 @@ export default {
 }
 
 #map_background {
+  margin-top: 0.75rem;
   z-index: -1;
   height: 95vh;
   min-width: 100%;

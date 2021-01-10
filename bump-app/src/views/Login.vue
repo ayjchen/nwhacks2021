@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit.prevent>
+  <b-form style="margin-top:5rem" @submit.prevent>
     <br>
     <img src="../assets/bump_logo.png" style="width:10%;">
     <div class="col-md-6 col-md-offset-3" style="margin:auto;">
@@ -33,7 +33,7 @@
     </b-form-group>
     <p class="error-message" style="color: red;">{{ error }}</p>
     </div>
-    <b-btn @click="login" type="submit" class="submit_button">LOG IN</b-btn>
+    <b-btn style="margin-top: 1.5rem" variant="info" size="lg" pill @click="login" type="submit" class="submit_button">Log In</b-btn>
   </b-form>
 </template>
 
