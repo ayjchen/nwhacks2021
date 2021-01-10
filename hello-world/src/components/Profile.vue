@@ -7,32 +7,24 @@
 </template>
 
 <script>
-import { usersCollection } from "@/firebaseConfig"
+import { mapState } from 'vuex';
 
 export default {
   name: 'Profile',
   data() {
 		return {
-      userName: "",
-      userRole: ""
     }
+  },
+  computed: {
+    ...mapState({//grap vuex store (should hopefully have been synced with firebase)
+      userName: state => state.userProfile.name,
+      userRole: state => state.userProfile.role,
+    }),
   },
   components: {
     
   },
-  mounted() {
-    this.fetchProfile();
-  },
   methods: {
-    fetchProfile() {
-
-      usersCollection.doc('wuDzgF9FuabsbGJ6Pb5S').get().then(doc => {
-        const userInfo = doc.data()
-        this.userName = userInfo.name;
-        this.userRole = userInfo.role;
-      });
-      
-    },
 
     updateProfile() {
       console.log("update profile for " + this.userName);

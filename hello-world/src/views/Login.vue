@@ -56,8 +56,11 @@ export default {
       this.error = "";
       auth
         .signInWithEmailAndPassword(this.loginForm.email, this.loginForm.password)
-        .then((data) => {
-          console.log(data)
+        .then((user) => {
+          user = auth.currentUser;
+          console.log(user);
+          this.$store.commit("setUser", user);
+          this.$store.dispatch("fetchUserProfile");
           console.log("Signed in successfully!")
           this.$router.replace({ name: "Home" });
         })
