@@ -73,6 +73,8 @@ export default {
 
         function draw() {
             ctx.clearRect(0, 0, c.width, c.height);
+            ctx.canvas.width  = window.innerWidth - 400;
+            ctx.canvas.height = window.innerHeight - 100;
             if(rightPressed) {
                 playerX += speed;
                 if (walk_count < 10) {
