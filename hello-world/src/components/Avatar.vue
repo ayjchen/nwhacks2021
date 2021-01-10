@@ -43,7 +43,7 @@ export default {
         currentBox: function(newval, oldval) {
             if (newval != oldval) {
                 console.log(newval)
-                // this.$emit("room-change", newval)
+                this.$emit("room-change", newval)
             }
         },
     },
