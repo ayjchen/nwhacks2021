@@ -1,17 +1,19 @@
 <template>
 <div>
   <div>Map goes here</div>
+  <Avatar/>
   <Room v-for="room in roomsList" :name="room" :key="room" @room-change="handleRoomChange" />
 </div>
 </template>
 
 <script>
 import Room from './Room.vue'
+import Avatar from './Avatar.vue'
 import {db} from "@/firebaseConfig"
 import {mapState} from "vuex"
 
 export default {
-  components: { Room },
+  components: { Room, Avatar },
     name: 'Map',
     data() {
         return {
