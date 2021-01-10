@@ -1,6 +1,7 @@
 <template>
   <b-form @submit.prevent>
-    <h3>Bump into someone</h3>
+    <br>
+    <img src="../assets/bump_logo.png" style="width:10%;">
     <b-form-group
       id="input-group-1"
       label="Email:"
