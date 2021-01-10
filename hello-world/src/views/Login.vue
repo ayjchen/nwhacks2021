@@ -59,7 +59,7 @@ export default {
         .then((data) => {
           console.log(data)
           console.log("Signed in successfully!")
-          //this.$router.replace({ name: "Home" });
+          this.$router.replace({ name: "Home" });
         })
         .catch(err => {
           this.error = err.message;
@@ -71,13 +71,5 @@ export default {
 </script>
 
 <style>
-.userInfo {
-  margin: 0.5rem;
-}
 
-#profile {
-  padding: 2rem;
-  min-width: 800px;
-  background-color: papayawhip;
-}
 </style>
